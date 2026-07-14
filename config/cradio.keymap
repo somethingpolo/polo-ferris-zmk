@@ -30,49 +30,73 @@
          * 20 21 22 23 24      25 26 27 28 29
          *          30 31      32 33
          */
-escape_combo {
-    timeout-ms = <35>;
-    require-prior-idle-ms = <80>;
-    key-positions = <0 1>;
-    bindings = <&kp ESC>;
-    layers = <WIN LINUX MAC>;
-};
-tab_combo {
-    timeout-ms = <35>;
-    require-prior-idle-ms = <80>;
-    key-positions = <10 11>;
-    bindings = <&kp TAB>;
-    layers = <WIN LINUX MAC>;
-};
-/*
- * I + O = semicolon
- * Hold Shift while triggering it for colon.
- */
-semicolon_combo {
-    timeout-ms = <40>;
-    require-prior-idle-ms = <80>;
-    key-positions = <18 19>;
-    bindings = <&kp SEMI>;
-    layers = <WIN LINUX MAC>;
-};
 
-/*
- * . + / = single quote
- * Hold Shift while triggering it for double quote.
- */
-quote_combo {
-    timeout-ms = <40>;
-    key-positions = <28 29>;
-    bindings = <&kp SQT>;
-    layers = <WIN LINUX MAC>;
-};
-        /* Windows and Linux editing combos */
-bootloader_combo {
-    timeout-ms = <50>;
-    key-positions = <20 29>;
-    bindings = <&bootloader>;
-    layers = <FN>;
-};
+        /*
+         * Q + W = Escape
+         */
+        escape_combo {
+            timeout-ms = <35>;
+            require-prior-idle-ms = <80>;
+            key-positions = <0 1>;
+            bindings = <&kp ESC>;
+            layers = <WIN LINUX MAC>;
+        };
+
+        /*
+         * A + R = Tab
+         */
+        tab_combo {
+            timeout-ms = <35>;
+            require-prior-idle-ms = <80>;
+            key-positions = <10 11>;
+            bindings = <&kp TAB>;
+            layers = <WIN LINUX MAC>;
+        };
+
+        /*
+         * I + O = semicolon
+         * Hold Shift while triggering it for colon.
+         */
+        semicolon_combo {
+            timeout-ms = <40>;
+            require-prior-idle-ms = <80>;
+            key-positions = <18 19>;
+            bindings = <&kp SEMI>;
+            layers = <WIN LINUX MAC>;
+        };
+
+        /*
+         * Period + slash = single quote
+         * Hold Shift while triggering it for double quote.
+         */
+        quote_combo {
+            timeout-ms = <40>;
+            require-prior-idle-ms = <80>;
+            key-positions = <28 29>;
+            bindings = <&kp SQT>;
+            layers = <WIN LINUX MAC>;
+        };
+
+        /*
+         * FN + Z + slash enters the bootloader.
+         *
+         * This normally affects the central/left half.
+         */
+        bootloader_combo {
+            timeout-ms = <50>;
+            key-positions = <20 29>;
+            bindings = <&bootloader>;
+            layers = <FN>;
+        };
+
+        /*
+         * Windows and Linux editing combos:
+         *
+         * Z + X = Undo
+         * X + C = Copy
+         * C + V = Paste
+         * V + B = Redo
+         */
         ctrl_undo {
             timeout-ms = <40>;
             key-positions = <20 21>;
@@ -101,8 +125,9 @@ bootloader_combo {
             layers = <WIN LINUX QWERTY>;
         };
 
-        /* macOS editing combos */
-
+        /*
+         * macOS editing combos.
+         */
         mac_undo {
             timeout-ms = <40>;
             key-positions = <20 21>;
@@ -149,7 +174,6 @@ bootloader_combo {
          * H + N = Left
          * J + L = Down
          */
-
         arrow_up {
             timeout-ms = <40>;
             key-positions = <25 26>;
@@ -188,54 +212,59 @@ bootloader_combo {
             layers = <NUMSYM>;
         };
 
-   /*
+        /*
+         * Press both outer thumbs to switch between
+         * Colemak and QWERTY.
+         *
+         * Position 30 = FN
+         * Position 33 = GUI
+         */
+        to_qwerty {
+            timeout-ms = <50>;
+            key-positions = <30 33>;
+            bindings = <&to QWERTY>;
+            layers = <WIN LINUX MAC>;
+        };
 
-fn_thumb_combo {
-    timeout-ms = <60>;
-    key-positions = <30 33>;
-    bindings = <&mo FN>;
-    layers = <WIN LINUX MAC QWERTY>;
-    slow-release;
-};
-
-to_qwerty {
-    timeout-ms = <40>;
-    key-positions = <31 32>;
-    bindings = <&to QWERTY>;
-    layers = <WIN LINUX MAC>;
-};
-
-to_colemak {
-    timeout-ms = <40>;
-    key-positions = <31 32>;
-    bindings = <&to WIN>;
-    layers = <QWERTY>;
-};
+        to_colemak {
+            timeout-ms = <50>;
+            key-positions = <30 33>;
+            bindings = <&to WIN>;
+            layers = <QWERTY>;
+        };
     };
 
     behaviors {
-
-right_outer_dance: right_outer_dance {
-    compatible = "zmk,behavior-tap-dance";
-    label = "RIGHT_OUTER_DANCE";
-    #binding-cells = <0>;
-
-    tapping-term-ms = <180>;
-
-    bindings =
-        <&mo NUMSYM>,
-        <&tog NUMSYM>;
-};
+        /*
+         * Space/Shift thumb behavior.
+         */
         thumb_mt: thumb_mod_tap {
-    compatible = "zmk,behavior-hold-tap";
-    label = "THUMB_MOD_TAP";
-    #binding-cells = <2>;
+            compatible = "zmk,behavior-hold-tap";
+            label = "THUMB_MOD_TAP";
+            #binding-cells = <2>;
 
-    flavor = "balanced";
-    tapping-term-ms = <200>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
 
-    bindings = <&kp>, <&kp>;
-};
+            bindings = <&kp>, <&kp>;
+        };
+
+        /*
+         * Enter/NumSym thumb behavior:
+         *
+         * Tap  = Enter
+         * Hold = NumSym
+         */
+        num_lt: num_layer_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "NUM_LAYER_TAP";
+            #binding-cells = <2>;
+
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+
+            bindings = <&mo>, <&kp>;
+        };
 
         /*
          * Single tap = /
@@ -255,14 +284,14 @@ right_outer_dance: right_outer_dance {
         compatible = "zmk,keymap";
 
         /*
-         * Colemak-DH-like Windows layer
+         * Colemak-DH-like Windows layer:
          *
          * Q W F P G    J L U Y Backspace
          * A R S T D    H N E I O
          * Z X C V B    K M , . /
          *
          * Thumbs:
-         * FN  Space/Shift    Enter/Shift  NumSym
+         * FN  Space/Shift    Enter/NumSym  GUI
          */
         win_layer {
             display-name = "Win";
@@ -279,15 +308,18 @@ right_outer_dance: right_outer_dance {
 
                               &mo FN
                               &thumb_mt LSHIFT SPACE
-                              &thumb_mt LSHIFT RET
-                              &right_outer_dance
+                              &num_lt NUMSYM RET
+                              &kp RGUI
             >;
         };
 
+        /*
+         * Linux layer.
+         */
         linux_layer {
-    display-name = "Linux";
+            display-name = "Linux";
 
-    bindings = <
+            bindings = <
 &kp Q         &kp W         &kp F          &kp P                 &kp G
 &kp J         &kp L         &kp U          &kp Y                 &kp BSPC
 
@@ -298,13 +330,16 @@ right_outer_dance: right_outer_dance {
 &kp Z         &kp X         &kp C          &kp V                 &kp B
 &kp K         &kp M         &kp COMMA      &kp DOT               &kp FSLH
 
-                              &kp LGUI
+                              &mo FN
                               &thumb_mt LSHIFT SPACE
-                              &thumb_mt RSHIFT RET
-                              &right_outer_dance
-    >;
-};
+                              &num_lt NUMSYM RET
+                              &kp RGUI
+            >;
+        };
 
+        /*
+         * macOS layer.
+         */
         mac_layer {
             display-name = "Mac";
 
@@ -320,8 +355,8 @@ right_outer_dance: right_outer_dance {
 
                               &mo FN
                               &thumb_mt LSHIFT SPACE
-                              &thumb_mt LSHIFT RET
-                              &right_outer_dance
+                              &num_lt NUMSYM RET
+                              &kp RGUI
             >;
         };
 
@@ -355,16 +390,15 @@ right_outer_dance: right_outer_dance {
 &kp AMPS                &kp PLUS
 
                                       &trans
-                                      &kp BSLH
-                                      &trans
+                                      &slash_dance
+                                      &kp RET
                                       &trans
             >;
         };
 
         /*
-         * Standard navigation layer:
+         * Navigation layer:
          *
-         * Right hand:
          * J = Down
          * L = Right
          * H = Left
@@ -390,26 +424,32 @@ right_outer_dance: right_outer_dance {
             >;
         };
 
+        /*
+         * Linux navigation layer.
+         */
         linux_media_layer {
-    display-name = "LxMedia";
+            display-name = "LxMedia";
 
-    bindings = <
+            bindings = <
 &trans  &trans  &trans     &trans  &trans
 &kp DOWN  &kp RIGHT  &trans  &trans  &trans
 
 &trans  &trans  &kp LCTRL  &trans  &trans
 &kp LEFT  &trans  &trans    &trans  &trans
 
-&trans  &trans  &trans  &trans  &trans
-&kp UP   &trans  &trans  &trans  &mo FN
+&trans  &trans  &trans     &trans  &trans
+&kp UP   &trans  &trans    &trans  &trans
 
                     &trans
                     &mo LINUX_SUPER_NAV
                     &trans
                     &trans
-    >;
-};
+            >;
+        };
 
+        /*
+         * Linux Super/Meta navigation layer.
+         */
         linux_super_nav_layer {
             display-name = "LxSuper";
 
@@ -430,6 +470,9 @@ right_outer_dance: right_outer_dance {
             >;
         };
 
+        /*
+         * QWERTY layer with the same thumb arrangement.
+         */
         qwerty_layer {
             display-name = "QWERTY";
 
@@ -444,12 +487,15 @@ right_outer_dance: right_outer_dance {
 &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH
 
                         &mo FN
-                        &kp SPACE
-                        &kp RET
-                        &right_outer_dance
+                        &thumb_mt LSHIFT SPACE
+                        &num_lt NUMSYM RET
+                        &kp RGUI
             >;
         };
 
+        /*
+         * Function and Bluetooth layer.
+         */
         function_layer {
             display-name = "Function";
 
@@ -461,7 +507,7 @@ right_outer_dance: right_outer_dance {
 &bt BT_SEL 4 &trans       &trans       &trans       &trans
 
 &to WIN      &to LINUX    &to MAC      &kp F11      &kp F12
-&trans       &trans       &trans       &trans       &kp LA(LC(DEL))
+&trans       &trans       &trans       &to QWERTY   &kp LA(LC(DEL))
 
                             &trans
                             &trans
@@ -473,7 +519,7 @@ right_outer_dance: right_outer_dance {
 };
 
 /*
- * Override ZMK's built-in mod-tap behavior.
+ * Override ZMK's built-in home-row mod-tap behavior.
  */
 &mt {
     flavor = "tap-preferred";
