@@ -188,25 +188,44 @@ bootloader_combo {
             layers = <NUMSYM>;
         };
 
-        /*
-         * Space + Enter switches between Colemak and QWERTY.
-         */
-        to_qwerty {
-            timeout-ms = <50>;
-            key-positions = <31 32>;
-            bindings = <&to QWERTY>;
-            layers = <WIN LINUX MAC>;
-        };
+   /*
 
-        to_colemak {
-            timeout-ms = <50>;
-            key-positions = <31 32>;
-            bindings = <&to WIN>;
-            layers = <QWERTY>;
-        };
+fn_thumb_combo {
+    timeout-ms = <60>;
+    key-positions = <30 33>;
+    bindings = <&mo FN>;
+    layers = <WIN LINUX MAC QWERTY>;
+    slow-release;
+};
+
+to_qwerty {
+    timeout-ms = <40>;
+    key-positions = <31 32>;
+    bindings = <&to QWERTY>;
+    layers = <WIN LINUX MAC>;
+};
+
+to_colemak {
+    timeout-ms = <40>;
+    key-positions = <31 32>;
+    bindings = <&to WIN>;
+    layers = <QWERTY>;
+};
     };
 
     behaviors {
+
+right_outer_dance: right_outer_dance {
+    compatible = "zmk,behavior-tap-dance";
+    label = "RIGHT_OUTER_DANCE";
+    #binding-cells = <0>;
+
+    tapping-term-ms = <180>;
+
+    bindings =
+        <&mo NUMSYM>,
+        <&tog NUMSYM>;
+};
         thumb_mt: thumb_mod_tap {
     compatible = "zmk,behavior-hold-tap";
     label = "THUMB_MOD_TAP";
@@ -261,7 +280,7 @@ bootloader_combo {
                               &mo FN
                               &thumb_mt LSHIFT SPACE
                               &thumb_mt LSHIFT RET
-                              &mo NUMSYM
+                              &right_outer_dance
             >;
         };
 
@@ -282,7 +301,7 @@ bootloader_combo {
                               &kp LGUI
                               &thumb_mt LSHIFT SPACE
                               &thumb_mt RSHIFT RET
-                              &mo NUMSYM
+                              &right_outer_dance
     >;
 };
 
@@ -302,7 +321,7 @@ bootloader_combo {
                               &mo FN
                               &thumb_mt LSHIFT SPACE
                               &thumb_mt LSHIFT RET
-                              &mo NUMSYM
+                              &right_outer_dance
             >;
         };
 
@@ -427,7 +446,7 @@ bootloader_combo {
                         &mo FN
                         &kp SPACE
                         &kp RET
-                        &mo NUMSYM
+                        &right_outer_dance
             >;
         };
 
