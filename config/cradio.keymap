@@ -194,17 +194,15 @@ bootloader_combo {
 
     behaviors {
         thumb_mt: thumb_mod_tap {
-            compatible = "zmk,behavior-hold-tap";
-            label = "THUMB_MOD_TAP";
-            #binding-cells = <2>;
+    compatible = "zmk,behavior-hold-tap";
+    label = "THUMB_MOD_TAP";
+    #binding-cells = <2>;
 
-            flavor = "tap-preferred";
-            tapping-term-ms = <145>;
-            quick-tap-ms = <100>;
-            require-prior-idle-ms = <125>;
+    flavor = "balanced";
+    tapping-term-ms = <200>;
 
-            bindings = <&kp>, <&kp>;
-        };
+    bindings = <&kp>, <&kp>;
+};
 
         /*
          * Single tap = /
