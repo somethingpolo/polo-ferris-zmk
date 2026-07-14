@@ -11,7 +11,7 @@
 #define WIN              0
 #define LINUX            1
 #define MAC              2
-#define NUMSYM           3a
+#define NUMSYM           3
 #define MEDIA            4
 #define LINUX_MEDIA      5
 #define LINUX_SUPER_NAV  6
@@ -336,7 +336,7 @@ bootloader_combo {
 &kp AMPS                &kp PLUS
 
                                       &trans
-                                      &BSLH
+                                      &kp BSLH
                                       &trans
                                       &trans
             >;
