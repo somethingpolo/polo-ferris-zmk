@@ -11,7 +11,7 @@
 #define WIN              0
 #define LINUX            1
 #define MAC              2
-#define NUMSYM           3
+#define NUMSYM           3a
 #define MEDIA            4
 #define LINUX_MEDIA      5
 #define LINUX_SUPER_NAV  6
@@ -372,24 +372,24 @@ bootloader_combo {
         };
 
         linux_media_layer {
-            display-name = "LxMedia";
+    display-name = "LxMedia";
 
-            bindings = <
+    bindings = <
 &trans  &trans  &trans     &trans  &trans
 &kp DOWN  &kp RIGHT  &trans  &trans  &trans
 
 &trans  &trans  &kp LCTRL  &trans  &trans
 &kp LEFT  &trans  &trans    &trans  &trans
 
-&trans  &trans  &trans     &trans  &trans
-&kp UP   &trans  &trans    &trans  &trans
+&trans  &trans  &trans  &trans  &trans
+&kp UP   &trans  &trans  &trans  &mo FN
 
                     &trans
                     &mo LINUX_SUPER_NAV
                     &trans
                     &trans
-            >;
-        };
+    >;
+};
 
         linux_super_nav_layer {
             display-name = "LxSuper";
