@@ -336,7 +336,7 @@ bootloader_combo {
 &kp AMPS                &kp PLUS
 
                                       &trans
-                                      &slash_dance
+                                      &BSLH
                                       &trans
                                       &trans
             >;
