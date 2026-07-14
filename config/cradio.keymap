@@ -30,6 +30,13 @@
          * 20 21 22 23 24      25 26 27 28 29
          *          30 31      32 33
          */
+escape_combo {
+    timeout-ms = <35>;
+    require-prior-idle-ms = <80>;
+    key-positions = <0 1>;
+    bindings = <&kp ESC>;
+    layers = <WIN LINUX MAC>;
+};
 tab_combo {
     timeout-ms = <35>;
     require-prior-idle-ms = <80>;
