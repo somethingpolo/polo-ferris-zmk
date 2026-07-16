@@ -371,9 +371,9 @@
          * single tap /, double tap \
          */
         numsym_layer {
-            display-name = "NumSym";
+    display-name = "NumSym";
 
-            bindings = <
+    bindings = <
 &kp N1                  &kp N2          &kp N3
 &kp N4                  &kp N5
 &kp N6                  &kp N7          &kp N8
@@ -384,17 +384,17 @@
 &kp RBRC                &kp RBKT        &kp RIGHT_PARENTHESIS
 &kp CARET               &kp DLLR
 
-&kp COMMA               &kp PERIOD      &kp TILDE
-&kp MINUS               &kp AT
-&kp EQUAL               &kp PRCNT       &kp UNDER
-&kp AMPS                &kp PLUS
+&kp PLUS                &kp MINUS       &kp EQUAL
+&kp TILDE               &kp AT
+&kp PIPE                &kp PRCNT       &kp UNDER
+&kp AMPS                &kp GRAVE
 
                                       &trans
                                       &slash_dance
                                       &kp RET
                                       &trans
-            >;
-        };
+    >;
+};
 
         /*
          * Navigation layer:
