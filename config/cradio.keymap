@@ -54,30 +54,6 @@
         };
 
         /*
-         * I + O = semicolon
-         * Hold Shift while triggering it for colon.
-         */
-        semicolon_combo {
-            timeout-ms = <40>;
-            require-prior-idle-ms = <80>;
-            key-positions = <18 19>;
-            bindings = <&kp SEMI>;
-            layers = <WIN LINUX MAC>;
-        };
-
-        /*
-         * Period + slash = single quote
-         * Hold Shift while triggering it for double quote.
-         */
-        quote_combo {
-            timeout-ms = <40>;
-            require-prior-idle-ms = <80>;
-            key-positions = <28 29>;
-            bindings = <&kp SQT>;
-            layers = <WIN LINUX MAC>;
-        };
-
-        /*
          * FN + Z + slash enters the bootloader.
          *
          * This normally affects the central/left half.
@@ -157,13 +133,23 @@
         };
 
         /*
-         * Y + Backspace = Delete
+         * Y + quote = Backspace
+         */
+        backspace_combo {
+            timeout-ms = <45>;
+            key-positions = <8 9>;
+            bindings = <&kp BSPC>;
+            layers = <WIN LINUX MAC>;
+        };
+
+        /*
+         * O + quote = Delete
          */
         delete_combo {
             timeout-ms = <45>;
-            key-positions = <8 9>;
+            key-positions = <9 19>;
             bindings = <&kp DEL>;
-            layers = <WIN LINUX MAC QWERTY>;
+            layers = <WIN LINUX MAC>;
         };
 
         /*
@@ -286,9 +272,9 @@
         /*
          * Colemak-DH-like Windows layer:
          *
-         * Q W F P G    J L U Y Backspace
+         * Q W F P G    J L U Y '
          * A R S T D    H N E I O
-         * Z X C V B    K M , . /
+         * Z X C V B    K M , . ;
          *
          * Thumbs:
          * FN  Space/Shift    Enter/NumSym  GUI
@@ -298,13 +284,13 @@
 
             bindings = <
 &kp Q         &kp W         &kp F          &kp P           &kp G
-&kp J         &kp L         &kp U          &kp Y           &kp BSPC
+&kp J         &kp L         &kp U          &kp Y           &kp SQT
 
 &kp A         &mt LALT R    &mt LCTRL S    &lt MEDIA T     &kp D
 &kp H         &lt MEDIA N   &mt RCTRL E    &mt RALT I      &kp O
 
 &kp Z         &kp X         &kp C          &kp V           &kp B
-&kp K         &kp M         &kp COMMA      &kp DOT         &kp FSLH
+&kp K         &kp M         &kp COMMA      &kp DOT         &kp SEMI
 
                               &mo FN
                               &thumb_mt LSHIFT SPACE
@@ -321,14 +307,14 @@
 
             bindings = <
 &kp Q         &kp W         &kp F          &kp P                 &kp G
-&kp J         &kp L         &kp U          &kp Y                 &kp BSPC
+&kp J         &kp L         &kp U          &kp Y                 &kp SQT
 
 &kp A         &mt LALT R    &mt LCTRL S    &lt LINUX_MEDIA T    &kp D
 &kp H         &lt LINUX_MEDIA N
               &mt RCTRL E   &mt RALT I     &kp O
 
 &kp Z         &kp X         &kp C          &kp V                 &kp B
-&kp K         &kp M         &kp COMMA      &kp DOT               &kp FSLH
+&kp K         &kp M         &kp COMMA      &kp DOT               &kp SEMI
 
                               &mo FN
                               &thumb_mt LSHIFT SPACE
@@ -345,13 +331,13 @@
 
             bindings = <
 &kp Q         &kp W         &kp F          &kp P           &kp G
-&kp J         &kp L         &kp U          &kp Y           &kp BSPC
+&kp J         &kp L         &kp U          &kp Y           &kp SQT
 
 &kp A         &mt LALT R    &mt LCTRL S    &lt MEDIA T     &kp D
 &kp H         &lt MEDIA N   &mt RCTRL E    &mt RALT I      &kp O
 
 &kp Z         &kp X         &kp C          &kp V           &kp B
-&kp K         &kp M         &kp COMMA      &kp DOT         &kp FSLH
+&kp K         &kp M         &kp COMMA      &kp DOT         &kp SEMI
 
                               &mo FN
                               &thumb_mt LSHIFT SPACE
@@ -361,40 +347,47 @@
         };
 
         /*
-         * NumSym:
+         * NumSym is held with the right inner thumb.
+         * High-frequency brackets are therefore grouped on the left hand:
          *
          * 1 2 3 4 5    6 7 8 9 0
-         * # * ( [ {    } ] ) ^ $
-         * , . ~ - @    = % _ & +
+         * # * ( { [    = - + ^ $
+         * ~ ` ) } ]    | & % @ _
+         *
+         * Left-hand vertical bracket pairs:
+         * ( above ), { above }, [ above ]
          *
          * Left inner thumb:
          * single tap /, double tap \
+         *
+         * Base-layer semicolon gives colon when shifted.
+         * Base-layer quote gives double quote when shifted.
          */
         numsym_layer {
-    display-name = "NumSym";
+            display-name = "NumSym";
 
-    bindings = <
+            bindings = <
 &kp N1                  &kp N2          &kp N3
 &kp N4                  &kp N5
 &kp N6                  &kp N7          &kp N8
 &kp N9                  &kp N0
 
 &kp LS(NUMBER_3)        &kp ASTERISK    &kp LPAR
-&kp LBKT                &kp LBRC
-&kp RBRC                &kp RBKT        &kp RIGHT_PARENTHESIS
+&kp LBRC                &kp LBKT
+&kp EQUAL               &kp MINUS       &kp PLUS
 &kp CARET               &kp DLLR
 
-&kp PLUS                &kp MINUS       &kp EQUAL
-&kp TILDE               &kp AT
-&kp PIPE                &kp PRCNT       &kp UNDER
-&kp AMPS                &kp GRAVE
+&kp TILDE               &kp GRAVE       &kp RIGHT_PARENTHESIS
+&kp RBRC                &kp RBKT
+&kp PIPE                &kp AMPS        &kp PRCNT
+&kp AT                  &kp UNDER
 
                                       &trans
                                       &slash_dance
                                       &kp RET
                                       &trans
-    >;
-};
+            >;
+        };
 
         /*
          * Navigation layer:
