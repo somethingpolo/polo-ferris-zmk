@@ -48,7 +48,7 @@
             key-positions = <28 29>;
             bindings = <&kp LS(SLASH)>;
             layers = <NUMSYM>;
-        }
+        };
 
         /*
          * A + R = Tab
