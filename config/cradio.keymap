@@ -335,7 +335,6 @@
          */
         slash_dance: slash_dance {
             compatible = "zmk,behavior-tap-dance";
-            label = "SLASH_DANCE";
             #binding-cells = <0>;
 
             tapping-term-ms = <175>;
@@ -350,24 +349,22 @@
          */
         comma_hold_tap: comma_hold_tap {
             compatible = "zmk,behavior-hold-tap";
-            label = "COMMA_HOLD_TAP";
-            #binding-cells = <0>;
+            #binding-cells = <2>;
 
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
             quick-tap-ms = <150>;
             require-prior-idle-ms = <100>;
 
-            bindings = <&kp QMARK>, <&kp COMMA>;
+            bindings = <&kp>, <&kp>;
         };
 
         comma_dance: comma_dance {
             compatible = "zmk,behavior-tap-dance";
-            label = "COMMA_DANCE";
             #binding-cells = <0>;
 
             tapping-term-ms = <175>;
-            bindings = <&comma_hold_tap>, <&kp BSLH>;
+            bindings = <&comma_hold_tap QMARK COMMA>, <&kp BSLH>;
         };
 
         /*
@@ -378,24 +375,22 @@
          */
         dot_hold_tap: dot_hold_tap {
             compatible = "zmk,behavior-hold-tap";
-            label = "DOT_HOLD_TAP";
-            #binding-cells = <0>;
+            #binding-cells = <2>;
 
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
             quick-tap-ms = <150>;
             require-prior-idle-ms = <100>;
 
-            bindings = <&kp EXCL>, <&kp DOT>;
+            bindings = <&kp>, <&kp>;
         };
 
         dot_dance: dot_dance {
             compatible = "zmk,behavior-tap-dance";
-            label = "DOT_DANCE";
             #binding-cells = <0>;
 
             tapping-term-ms = <175>;
-            bindings = <&dot_hold_tap>, <&kp FSLH>;
+            bindings = <&dot_hold_tap EXCL DOT>, <&kp FSLH>;
         };
     };
 
