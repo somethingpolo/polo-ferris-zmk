@@ -287,7 +287,6 @@
          */
         thumb_mt: thumb_mod_tap {
             compatible = "zmk,behavior-hold-tap";
-            label = "THUMB_MOD_TAP";
             #binding-cells = <2>;
 
             flavor = "balanced";
@@ -304,7 +303,6 @@
          */
         num_lt: num_layer_tap {
             compatible = "zmk,behavior-hold-tap";
-            label = "NUM_LAYER_TAP";
             #binding-cells = <2>;
 
             flavor = "balanced";
@@ -322,14 +320,13 @@
          */
         numsym_toggle_hold: numsym_toggle_hold {
             compatible = "zmk,behavior-hold-tap";
-            label = "NUMSYM_TOGGLE_HOLD";
-            #binding-cells = <0>;
+            #binding-cells = <2>;
 
             flavor = "balanced";
             tapping-term-ms = <200>;
             quick-tap-ms = <150>;
 
-            bindings = <&mo NUMSYM>, <&tog NUMSYM>;
+            bindings = <&mo>, <&tog>;
         };
 
         /*
@@ -428,7 +425,7 @@
 &kp Z         &kp X         &kp C          &kp V           &kp B
 &kp K         &kp M         &comma_dance   &dot_dance      &kp SEMI
 
-                              &numsym_toggle_hold
+                              &numsym_toggle_hold NUMSYM NUMSYM
                               &thumb_mt LSHIFT SPACE
                               &num_lt NUMSYM RET
                               &kp RGUI
@@ -452,7 +449,7 @@
 &kp Z         &kp X         &kp C          &kp V                 &kp B
 &kp K         &kp M         &comma_dance   &dot_dance            &kp SEMI
 
-                              &numsym_toggle_hold
+                              &numsym_toggle_hold NUMSYM NUMSYM
                               &thumb_mt LSHIFT SPACE
                               &num_lt NUMSYM RET
                               &kp RGUI
@@ -475,7 +472,7 @@
 &kp Z         &kp X         &kp C          &kp V           &kp B
 &kp K         &kp M         &comma_dance   &dot_dance      &kp SEMI
 
-                              &numsym_toggle_hold
+                              &numsym_toggle_hold NUMSYM NUMSYM
                               &thumb_mt LSHIFT SPACE
                               &num_lt NUMSYM RET
                               &kp RGUI
@@ -515,7 +512,7 @@
 &kp PIPE                &kp AMPS        &kp PRCNT
 &kp AT                  &kp UNDER
 
-                                      &numsym_toggle_hold
+                                      &numsym_toggle_hold NUMSYM NUMSYM
                                       &slash_dance
                                       &kp RET
                                       &trans
@@ -543,7 +540,7 @@
 &trans  &trans  &trans     &trans  &trans
 &kp UP   &trans  &trans    &trans  &trans
 
-                    &numsym_toggle_hold
+                    &numsym_toggle_hold NUMSYM NUMSYM
                     &thumb_mt LSHIFT SPACE
                     &trans
                     &trans
@@ -566,7 +563,7 @@
 &trans  &trans  &trans     &trans  &trans
 &kp UP   &trans  &trans    &trans  &trans
 
-                    &numsym_toggle_hold
+                    &numsym_toggle_hold NUMSYM NUMSYM
                     &mo LINUX_SUPER_NAV
                     &trans
                     &trans
@@ -589,7 +586,7 @@
 &trans  &trans  &trans  &trans  &trans
 &kp LG(UP)  &trans  &trans  &trans  &trans
 
-                    &numsym_toggle_hold
+                    &numsym_toggle_hold NUMSYM NUMSYM
                     &trans
                     &trans
                     &trans
@@ -612,7 +609,7 @@
 &kp Z      &kp X      &kp C      &kp V      &kp B
 &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH
 
-                        &numsym_toggle_hold
+                        &numsym_toggle_hold NUMSYM NUMSYM
                         &thumb_mt LSHIFT SPACE
                         &num_lt NUMSYM RET
                         &kp RGUI
@@ -635,7 +632,7 @@
 &to WIN       &to LINUX    &to MAC      &trans         &trans
 &trans        &trans       &trans       &trans         &trans
 
-                            &numsym_toggle_hold
+                            &numsym_toggle_hold NUMSYM NUMSYM
                             &trans
                             &mkp LCLK
                             &mkp RCLK
