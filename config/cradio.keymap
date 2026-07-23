@@ -296,10 +296,10 @@
         };
 
         /*
-         * Enter/NumSym thumb behavior:
+         * Generic layer-tap behavior retained for possible future use.
          *
-         * Tap  = Enter
-         * Hold = NumSym
+         * First argument  = layer activated while held
+         * Second argument = key sent when tapped
          */
         num_lt: num_layer_tap {
             compatible = "zmk,behavior-hold-tap";
@@ -405,7 +405,7 @@
          * Z X C V B    K M , . ;
          *
          * Thumbs:
-         * FN  Space/Shift    Enter/NumSym  GUI
+         * NumSym toggle/hold  Space/Shift    Enter/Shift  GUI
          */
         win_layer {
             display-name = "Win";
@@ -422,7 +422,7 @@
 
                               &numsym_toggle_hold NUMSYM NUMSYM
                               &thumb_mt LSHIFT SPACE
-                              &num_lt NUMSYM RET
+                              &thumb_mt RSHIFT RET
                               &kp RGUI
             >;
         };
@@ -446,7 +446,7 @@
 
                               &numsym_toggle_hold NUMSYM NUMSYM
                               &thumb_mt LSHIFT SPACE
-                              &num_lt NUMSYM RET
+                              &thumb_mt RSHIFT RET
                               &kp RGUI
             >;
         };
@@ -469,7 +469,7 @@
 
                               &numsym_toggle_hold NUMSYM NUMSYM
                               &thumb_mt LSHIFT SPACE
-                              &num_lt NUMSYM RET
+                              &thumb_mt RSHIFT RET
                               &kp RGUI
             >;
         };
@@ -606,7 +606,7 @@
 
                         &numsym_toggle_hold NUMSYM NUMSYM
                         &thumb_mt LSHIFT SPACE
-                        &num_lt NUMSYM RET
+                        &thumb_mt RSHIFT RET
                         &kp RGUI
             >;
         };
@@ -619,13 +619,13 @@
 
             bindings = <
 &fn_bt_clear  &fn_f2       &fn_f5       &fn_f11        &fn_f12
-&trans        &trans       &mmv MOVE_UP &trans         &trans
+&trans        &msc SCRL_UP &mmv MOVE_UP &trans         &trans
 
 &fn_bt_0      &fn_bt_1     &fn_bt_2     &fn_bt_3       &fn_bt_4
 &trans        &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &trans
 
 &to WIN       &to LINUX    &to MAC      &trans         &trans
-&trans        &trans       &trans       &trans         &trans
+&trans        &msc SCRL_DOWN &trans       &trans         &trans
 
                             &numsym_toggle_hold NUMSYM NUMSYM
                             &trans
