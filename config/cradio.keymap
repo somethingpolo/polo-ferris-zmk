@@ -213,26 +213,6 @@
             layers = <WIN LINUX MAC>;
         };
 
-        /*
-         * Press both outer thumbs to switch between
-         * Colemak and QWERTY.
-         *
-         * Position 30 = FN
-         * Position 33 = GUI
-         */
-        to_qwerty {
-            timeout-ms = <50>;
-            key-positions = <30 33>;
-            bindings = <&to QWERTY>;
-            layers = <WIN LINUX MAC>;
-        };
-
-        to_colemak {
-            timeout-ms = <50>;
-            key-positions = <30 33>;
-            bindings = <&to WIN>;
-            layers = <QWERTY>;
-        };
     };
 
 
