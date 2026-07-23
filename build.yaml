@@ -14,11 +14,12 @@
 ---
 
 include:
+include:
   - board: nice_nano//zmk
-    shield: cradio_left
+    shield: ferris_sweep_left
 
   - board: nice_nano//zmk
-    shield: cradio_right
+    shield: ferris_sweep_right
 
   - board: nice_nano//zmk
     shield: settings_reset
