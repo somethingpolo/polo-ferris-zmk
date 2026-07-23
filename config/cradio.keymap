@@ -7,6 +7,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/pointing.h>
 
 #define WIN              0
 #define LINUX            1
@@ -40,14 +41,6 @@
             key-positions = <0 1>;
             bindings = <&kp ESC>;
             layers = <WIN LINUX MAC>;
-        };
-
-        qn_mark_combo {
-            timeout-ms = <35>;
-            require-prior-idle-ms = <80>;
-            key-positions = <28 29>;
-            bindings = <&kp LS(SLASH)>;
-            layers = <NUMSYM>;
         };
 
         /*
@@ -161,6 +154,30 @@
         };
 
         /*
+         * Both outer thumbs toggle the Function layer.
+         *
+         * Press once  = FN on
+         * Press again = FN off
+         */
+        fn_toggle_combo {
+            timeout-ms = <50>;
+            require-prior-idle-ms = <80>;
+            key-positions = <30 33>;
+            bindings = <&tog FN>;
+            layers = <
+                WIN
+                LINUX
+                MAC
+                NUMSYM
+                MEDIA
+                LINUX_MEDIA
+                LINUX_SUPER_NAV
+                QWERTY
+                FN
+            >;
+        };
+
+        /*
          * Colemak arrow combos:
          *
          * K + M = Up
@@ -197,16 +214,6 @@
         };
 
         /*
-         * NumSym: 1 + 2 = Backslash
-         */
-        backslash_combo {
-            timeout-ms = <40>;
-            key-positions = <0 1>;
-            bindings = <&kp BSLH>;
-            layers = <NUMSYM>;
-        };
-
-        /*
          * Press both outer thumbs to switch between
          * Colemak and QWERTY.
          *
@@ -225,6 +232,72 @@
             key-positions = <30 33>;
             bindings = <&to WIN>;
             layers = <QWERTY>;
+        };
+    };
+
+
+    macros {
+        /*
+         * FN actions which automatically leave the toggled FN layer.
+         */
+        fn_bt_clear: fn_bt_clear {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_CLR>, <&tog FN>;
+        };
+
+        fn_bt_0: fn_bt_0 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_SEL 0>, <&tog FN>;
+        };
+
+        fn_bt_1: fn_bt_1 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_SEL 1>, <&tog FN>;
+        };
+
+        fn_bt_2: fn_bt_2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_SEL 2>, <&tog FN>;
+        };
+
+        fn_bt_3: fn_bt_3 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_SEL 3>, <&tog FN>;
+        };
+
+        fn_bt_4: fn_bt_4 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_SEL 4>, <&tog FN>;
+        };
+
+        fn_f2: fn_f2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp F2>, <&tog FN>;
+        };
+
+        fn_f5: fn_f5 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp F5>, <&tog FN>;
+        };
+
+        fn_f11: fn_f11 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp F11>, <&tog FN>;
+        };
+
+        fn_f12: fn_f12 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp F12>, <&tog FN>;
         };
     };
 
@@ -260,6 +333,25 @@
             bindings = <&mo>, <&kp>;
         };
 
+
+        /*
+         * Left outer thumb:
+         *
+         * Tap  = toggle NumSym
+         * Hold = momentary NumSym
+         */
+        numsym_toggle_hold: numsym_toggle_hold {
+            compatible = "zmk,behavior-hold-tap";
+            label = "NUMSYM_TOGGLE_HOLD";
+            #binding-cells = <0>;
+
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+
+            bindings = <&mo NUMSYM>, <&tog NUMSYM>;
+        };
+
         /*
          * Single tap = /
          * Double tap = \
@@ -271,6 +363,62 @@
 
             tapping-term-ms = <175>;
             bindings = <&kp FSLH>, <&kp BSLH>;
+        };
+
+        /*
+         * Comma:
+         * tap        = ,
+         * double tap = \
+         * hold       = ?
+         */
+        comma_hold_tap: comma_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "COMMA_HOLD_TAP";
+            #binding-cells = <0>;
+
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+            require-prior-idle-ms = <100>;
+
+            bindings = <&kp QMARK>, <&kp COMMA>;
+        };
+
+        comma_dance: comma_dance {
+            compatible = "zmk,behavior-tap-dance";
+            label = "COMMA_DANCE";
+            #binding-cells = <0>;
+
+            tapping-term-ms = <175>;
+            bindings = <&comma_hold_tap>, <&kp BSLH>;
+        };
+
+        /*
+         * Period:
+         * tap        = .
+         * double tap = /
+         * hold       = !
+         */
+        dot_hold_tap: dot_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "DOT_HOLD_TAP";
+            #binding-cells = <0>;
+
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+            require-prior-idle-ms = <100>;
+
+            bindings = <&kp EXCL>, <&kp DOT>;
+        };
+
+        dot_dance: dot_dance {
+            compatible = "zmk,behavior-tap-dance";
+            label = "DOT_DANCE";
+            #binding-cells = <0>;
+
+            tapping-term-ms = <175>;
+            bindings = <&dot_hold_tap>, <&kp FSLH>;
         };
     };
 
@@ -298,9 +446,9 @@
 &kp H         &lt MEDIA N   &mt RCTRL E    &mt RALT I      &kp O
 
 &kp Z         &kp X         &kp C          &kp V           &kp B
-&kp K         &kp M         &kp COMMA      &kp DOT         &kp SEMI
+&kp K         &kp M         &comma_dance   &dot_dance      &kp SEMI
 
-                              &mo FN
+                              &numsym_toggle_hold
                               &thumb_mt LSHIFT SPACE
                               &num_lt NUMSYM RET
                               &kp RGUI
@@ -322,9 +470,9 @@
               &mt RCTRL E   &mt RALT I     &kp O
 
 &kp Z         &kp X         &kp C          &kp V                 &kp B
-&kp K         &kp M         &kp COMMA      &kp DOT               &kp SEMI
+&kp K         &kp M         &comma_dance   &dot_dance            &kp SEMI
 
-                              &mo FN
+                              &numsym_toggle_hold
                               &thumb_mt LSHIFT SPACE
                               &num_lt NUMSYM RET
                               &kp RGUI
@@ -345,9 +493,9 @@
 &kp H         &lt MEDIA N   &mt RCTRL E    &mt RALT I      &kp O
 
 &kp Z         &kp X         &kp C          &kp V           &kp B
-&kp K         &kp M         &kp COMMA      &kp DOT         &kp SEMI
+&kp K         &kp M         &comma_dance   &dot_dance      &kp SEMI
 
-                              &mo FN
+                              &numsym_toggle_hold
                               &thumb_mt LSHIFT SPACE
                               &num_lt NUMSYM RET
                               &kp RGUI
@@ -364,9 +512,6 @@
          *
          * Left-hand vertical bracket pairs:
          * ( above ), { above }, [ above ]
-         *
-         * Left inner thumb:
-         * single tap /, double tap \
          *
          * Base-layer semicolon gives colon when shifted.
          * Base-layer quote gives double quote when shifted.
@@ -390,7 +535,7 @@
 &kp PIPE                &kp AMPS        &kp PRCNT
 &kp AT                  &kp UNDER
 
-                                      &trans
+                                      &numsym_toggle_hold
                                       &slash_dance
                                       &kp RET
                                       &trans
@@ -418,7 +563,7 @@
 &trans  &trans  &trans     &trans  &trans
 &kp UP   &trans  &trans    &trans  &trans
 
-                    &trans
+                    &numsym_toggle_hold
                     &thumb_mt LSHIFT SPACE
                     &trans
                     &trans
@@ -441,7 +586,7 @@
 &trans  &trans  &trans     &trans  &trans
 &kp UP   &trans  &trans    &trans  &trans
 
-                    &trans
+                    &numsym_toggle_hold
                     &mo LINUX_SUPER_NAV
                     &trans
                     &trans
@@ -464,7 +609,7 @@
 &trans  &trans  &trans  &trans  &trans
 &kp LG(UP)  &trans  &trans  &trans  &trans
 
-                    &trans
+                    &numsym_toggle_hold
                     &trans
                     &trans
                     &trans
@@ -487,7 +632,7 @@
 &kp Z      &kp X      &kp C      &kp V      &kp B
 &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH
 
-                        &mo FN
+                        &numsym_toggle_hold
                         &thumb_mt LSHIFT SPACE
                         &num_lt NUMSYM RET
                         &kp RGUI
@@ -501,19 +646,19 @@
             display-name = "Function";
 
             bindings = <
-&kp F1       &kp F2       &kp F3       &kp F4       &kp F5
-&kp F6       &kp F7       &kp F8       &kp F9       &kp F10
+&fn_bt_clear  &fn_f2       &fn_f5       &fn_f11        &fn_f12
+&trans        &trans       &mmv MOVE_UP &trans         &trans
 
-&bt BT_CLR   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3
-&bt BT_SEL 4 &trans       &trans       &trans       &trans
+&fn_bt_0      &fn_bt_1     &fn_bt_2     &fn_bt_3       &fn_bt_4
+&trans        &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &trans
 
-&to WIN      &to LINUX    &to MAC      &kp F11      &kp F12
-&trans       &trans       &trans       &to QWERTY   &kp LA(LC(DEL))
+&to WIN       &to LINUX    &to MAC      &trans         &trans
+&trans        &trans       &trans       &trans         &trans
 
+                            &numsym_toggle_hold
                             &trans
-                            &trans
-                            &trans
-                            &trans
+                            &mkp LCLK
+                            &mkp RCLK
             >;
         };
     };
