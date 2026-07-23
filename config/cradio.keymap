@@ -42,6 +42,14 @@
             layers = <WIN LINUX MAC>;
         };
 
+        qn_mark_combo {
+            timeout-ms = <35>;
+            require-prior-idle-ms = <80>;
+            key-positions = <28 29>;
+            bindings = <&kp LS(SLASH)>;
+            layers = <NUMSYM>;
+        }
+
         /*
          * A + R = Tab
          */
